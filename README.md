@@ -1,4 +1,4 @@
-# CodeAlpha - Data Redundancy Removal System (Local)
+# CodeAlpha - Data Redundancy Removal System 
 
 ## Overview
 This project demonstrates a Data Redundancy Removal System using local JSON storage.
