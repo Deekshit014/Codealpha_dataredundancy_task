@@ -31,5 +31,11 @@ and prevents duplicate entries from being stored (local fallback mode).
 - `GET /all` : list stored records.
 
 ## Files
-- `app.py`, `utils.py`, `index.html`, `ui.py`, `requirements.txt`, `sample_client.sh`, `local_db.json`
+- `app.py`
+- `utils.py`
+- `index.html`
+- `ui.py`
+- `requirements.txt`
+- `sample_client.sh`
+- `local_db.json`
 
