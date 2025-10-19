@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Data Redundancy Removal System</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width:800px; margin:40px auto; }
+    label { display:block; margin-top:10px; }
+    textarea { width:100%; padding:8px; margin-top:6px; font-family: monospace; }
+    button { margin-top:12px; padding:10px 16px; }
+    pre { background:#f4f4f4; padding:10px; white-space:pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>Data Redundancy Removal System (Local)</h1>
+  <p>Paste a JSON record below and click Submit. The backend will prevent duplicates.</p>
+
+  <label>JSON record:</label>
+  <textarea id="json" rows="6">{ "name":"John", "email":"john@example.com", "age":25 }</textarea>
+  <div>
+    <button onclick="submitData()">Submit</button>
+    <button onclick="getAll()">Get All Stored</button>
+  </div>
+
+  <h3>Response</h3>
+  <pre id="out">No response yet</pre>
+
+  <script>
+    async function submitData(){
+      const txt = document.getElementById('json').value;
+      let obj;
+      try{ obj = JSON.parse(txt); } catch(e){
+        document.getElementById('out').textContent = 'Invalid JSON: ' + e;
+        return;
+      }
+      try {
+        const res = await fetch('/add', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(obj)
+        });
+        const body = await res.json();
+        document.getElementById('out').textContent = JSON.stringify(body, null, 2);
+      } catch(err){
+        document.getElementById('out').textContent = 'Request failed: ' + err;
+      }
+    }
+
+    async function getAll(){
+      try {
+        const res = await fetch('/all');
+        const body = await res.json();
+        document.getElementById('out').textContent = JSON.stringify(body, null, 2);
+      } catch(err){
+        document.getElementById('out').textContent = 'Request failed: ' + err;
+      }
+    }
+  </script>
+</body>
+</html>
